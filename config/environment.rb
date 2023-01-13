@@ -1,9 +1,7 @@
 require 'bundler'
-Bundler.require
+Bundler.require(:default)
 
-root = settings.root.sub(/\/config$/, '')
-
-set :root, root
+root = ENV['PWD']
 set :public_folder, "#{root}/app/assets"
 set :views, "#{root}/app/views"
 

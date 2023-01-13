@@ -22,6 +22,7 @@ class Connection
 	def close
 		@threads.each { |thr| thr.kill }
 		@socket.close
+		@current_state = :closed
 	end
 
 	def add_message message

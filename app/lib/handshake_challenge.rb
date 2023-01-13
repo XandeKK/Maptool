@@ -1,4 +1,6 @@
 class HandshakeChallenge
+	class InvalidChallenge < StandardError;	end
+
 	def initialize(challenge, expected_response, key)
 		@challenge = challenge
 		@expected_response = expected_response
@@ -25,7 +27,7 @@ class HandshakeChallenge
 		challenge_string = descryptor.update(challenge) + descryptor.final
 
 		unless challenge_string.start_with? username
-			raise "Handshake challenge #{challenge_string} does not with username #{username}"
+			raise InvalidChallenge, "Handshake challenge #{challenge_string} does not with username #{username}"
 		end
 
 		response_string = challenge_string[username.length..]

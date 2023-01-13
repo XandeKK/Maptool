@@ -8,4 +8,9 @@ gem 'redis'
 gem 'google-protobuf'
 gem 'openssl'
 gem 'securerandom'
-gem 'rspec'
+
+group :test do
+	gem 'rspec'
+  gem 'stringio'
+  gem 'timeout'
+end
