@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="http://localhost:9292/faye/client.js"></script>
+	<title></title>
+</head>
+<body>
+
+<form id="form" action="" method="post">
+  <label for="address">Address:</label>
+  <input id="address" type="text" name="address"> <br>
+  <label for="port">port:</label>
+  <input id="port" type="text" name="port"> <br>
+  <label for="name">name:</label>
+  <input id="name" type="text" name="name"> <br>
+  <label for="password">password:</label>
+  <input id="password" type="text" name="password"> <br>
+  <label for="version">version:</label>
+  <input id="version" type="text" name="version"> <br>
+
+  <input type="submit" value="connect" id="foda">
+</form>
+
+<br>
+
+<textarea id="message"></textarea>
+<button id="submit">ok</button>
+
+<script type="text/javascript">
+  function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+
+  uuid = uuidv4();
+
+  let faye_client = new Faye.Client( 'http://localhost:9292/faye' );
+
+  foda.addEventListener('click', (event)=> {
+    event.preventDefault();
+    const data = new FormData(document.getElementById('form'));
+    const value = Object.fromEntries(data.entries());
+
+    Logger = {
+      outgoing: function(message, callback) {
+        message.maptool = value;
+        callback(message);
+      }
+    };
+
+    faye_client.addExtension(Logger);
+
+    faye_client.subscribe( `/${uuid}`, function( data ) {
+      console.log(data)
+    });
+  })
+</script>
+</body>
+</html>
