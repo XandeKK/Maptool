@@ -1,3 +1,6 @@
+# A note to future me
+# If possible change everything to support eventmachine
+# and add the messages on the redis server
 class Connection
 	attr_accessor :current_state
 	attr_reader :messages_to_read
