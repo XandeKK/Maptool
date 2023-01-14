@@ -53,8 +53,7 @@ class Client::Handshake
 
 		case @connection.current_state
 		when :awaiting_use_auth_type
-			if msg_type == :request_public_key_msg
-			elsif msg_type == :use_auth_type_msg
+			if msg_type == :use_auth_type_msg
 				handle_use_auth_type_msg(handshake_msg.use_auth_type_msg)
 			elsif msg_type == :player_blocked_msg
 				@faye_client.publish({ error: "Player blocked" })
@@ -72,6 +71,8 @@ class Client::Handshake
 			end
 		end
 	end
+
+	private
 
 	def handle_use_auth_type_msg use_auth_type_msg
 		client_auth_msg = Maptool::ClientAuthMsg.new

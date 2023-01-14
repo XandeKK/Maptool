@@ -48,7 +48,7 @@ class Client
 
 	def close
 		@connection.close
-		@thread.kill
 		@faye_client.publish({ error: "Closed" })
+		@thread.kill
 	end
 end

@@ -18,6 +18,8 @@ class ServerSocket
 		accept_client
 		length = message.length
 
+		return if @client.closed?
+
 		@client.write (length >> 24).chr
 		@client.write (length >> 16).chr
 		@client.write (length >> 8).chr
@@ -29,6 +31,7 @@ class ServerSocket
 	def read_message
 		accept_client
 		loop do
+			break if @client.closed?
 			msg = @client.recv(1028)
 
 			@messages << msg[4..] unless msg.empty?

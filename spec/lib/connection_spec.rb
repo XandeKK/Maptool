@@ -66,8 +66,4 @@ RSpec.describe Connection do
 			@connection.close
 		end
 	end
-
-	after(:each) do
-		@server.close
-	end
 end

@@ -55,6 +55,10 @@ class Connection
 
 	def read_message
 		loop do
+			if @socket.closed?
+				@current_state = :error
+				break
+			end
 			b32 = hex_to_int @socket.recv(1)
 			b24 = hex_to_int @socket.recv(1)
 			b16 = hex_to_int @socket.recv(1)
