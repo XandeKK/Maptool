@@ -1,12 +1,12 @@
 class FayeHandler
 	def initialize
-		@users = {}
+		@clients = {}
 		@client = Faye::Client.new('http://localhost:9292/faye')
 	end
 
 	def incoming(message, callback)
 		if message['channel'] == '/meta/subscribe'
-			add_user(message)
+			add_client(message)
 		elsif message['channel'] == '/meta/disconnect'
 			remove_user message
 		elsif !message['channel'].start_with?('/meta') && message['maptool']
@@ -17,7 +17,7 @@ class FayeHandler
     callback.call(message)
   end
 
-  def add_user message
+  def add_client message
   	client = Client.new(
       host_name: message['maptool']['address'],
       port: message['maptool']['port'],
@@ -28,17 +28,17 @@ class FayeHandler
       channel: message['subscription']
     )
 
-    @users[message['clientId']] = { client: client, channel: message['subscription'] }
+    @clients[message['clientId']] = { client: client, channel: message['subscription'] }
 
     client.start
   end
 
   def add_message message
-  	@users[message['clientId']][:client].add_message(message['data'])
+  	@clients[message['clientId']][:client].add_message(message['data'])
   end
 
   def remove_user message
-  	@users[message['clientId']][:client].close
-  	@users.delete(message['clientId'])
+  	@clients[message['clientId']][:client].close
+  	@clients.delete(message['clientId'])
   end
 end

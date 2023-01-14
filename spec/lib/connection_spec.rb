@@ -1,4 +1,4 @@
-require_relative '../server_socket'
+require_relative '../helper/server_socket'
 
 RSpec.describe Connection do
 	before(:each) do
