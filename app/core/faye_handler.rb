@@ -10,7 +10,7 @@ class FayeHandler
 		if message['channel'] == '/meta/subscribe'
 			add_client(message)
 		elsif message['channel'] == '/meta/disconnect'
-			remove_user message
+			remove_client(message)
 		elsif !message['channel'].start_with?('/meta') && message['maptool']
       # if the message came from the client browser
 			add_message message
@@ -40,7 +40,7 @@ class FayeHandler
   	@clients[message['clientId']][:client].add_message(message['data'])
   end
 
-  def remove_user message
+  def remove_client message
   	@clients[message['clientId']][:client].close
   	@clients.delete(message['clientId'])
   end
