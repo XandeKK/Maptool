@@ -1,7 +1,9 @@
 class FayeHandler
 	def initialize
+    # A note to future me
+    # Store clients on redis server
 		@clients = {}
-		@client = Faye::Client.new('http://localhost:9292/faye')
+		@faye_client = Faye::Client.new('http://localhost:9292/faye')
 	end
 
 	def incoming(message, callback)
@@ -10,6 +12,7 @@ class FayeHandler
 		elsif message['channel'] == '/meta/disconnect'
 			remove_user message
 		elsif !message['channel'].start_with?('/meta') && message['maptool']
+      # if the message came from the client browser
 			add_message message
 			return
 		end
@@ -24,7 +27,7 @@ class FayeHandler
       name: message['maptool']['name'],
       password: message['maptool']['password'],
       version: message['maptool']['version'],
-      faye_client: @client,
+      faye_client: @faye_client,
       channel: message['subscription']
     )
 

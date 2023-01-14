@@ -8,9 +8,9 @@ module CipherUtil
   KEY_ALGORITHM = "AES-128-CBC"
 
   class Key
-  	attr_reader :key, :secret_key_spec, :salt, :asymmetric
-  	def initialize key, secret_key_spec, salt, asymmetric=false
-  		@key = key
+  	attr_reader :pbkdf2_hmac_sha1, :secret_key_spec, :salt, :asymmetric
+  	def initialize pbkdf2_hmac_sha1, secret_key_spec, salt, asymmetric=false
+  		@pbkdf2_hmac_sha1 = pbkdf2_hmac_sha1
   		@secret_key_spec = secret_key_spec 
   		@salt = salt 
   		@asymmetric = asymmetric
@@ -37,15 +37,15 @@ module CipherUtil
 	end
 
 	def self.create_key password, salt
-		spec = OpenSSL::PKCS5.pbkdf2_hmac_sha1(
+		pbkdf2_hmac_sha1 = OpenSSL::PKCS5.pbkdf2_hmac_sha1(
 			password, salt, KEY_ITERATION_KEY_COUNT, 16
 		)
 
 		secret_spec = OpenSSL::Cipher.new KEY_ALGORITHM
-		secret_spec.key = spec
+		secret_spec.key = pbkdf2_hmac_sha1
 		secret_spec.iv = secret_spec.random_iv
 
-		Key.new(spec, secret_spec, salt)
+		Key.new(pbkdf2_hmac_sha1, secret_spec, salt)
 	end
 
 	def self.create_cipher encrypt_mode, key, iv
@@ -60,7 +60,7 @@ module CipherUtil
 				cipher.decrypt
 			end
 
-			cipher.key = key.key
+			cipher.key = key.pbkdf2_hmac_sha1
 			cipher.iv = iv
 			
 			return cipher

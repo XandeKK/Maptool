@@ -44,12 +44,12 @@ RSpec.describe CipherUtil do
 	describe '#create_key' do
 		it 'return CipherUtil::Key' do
 			key = CipherUtil.create_key(password, salt)
-			spec = OpenSSL::PKCS5.pbkdf2_hmac_sha1(
+			pbkdf2_hmac_sha1 = OpenSSL::PKCS5.pbkdf2_hmac_sha1(
 				password, salt, CipherUtil::KEY_ITERATION_KEY_COUNT, 16
 			)
 
 			expect(key.class).to eq(CipherUtil::Key)
-			expect(key.key).to eq(spec)
+			expect(key.pbkdf2_hmac_sha1).to eq(pbkdf2_hmac_sha1)
 			expect(key.salt).to eq(salt)
 			expect(key.secret_key_spec.class).to eq(OpenSSL::Cipher)
 		end
