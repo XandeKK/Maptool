@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require(:default)
+Bundler.require(ENV['APP_ENV']) if ENV['APP_ENV']
 
 root = ENV['PWD']
 set :public_folder, "#{root}/app/assets"
