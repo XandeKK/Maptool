@@ -43,10 +43,13 @@ class Connection
 			begin
 				message = @messages_to_send.pop
 				length = message.length
-				@socket.write (length >> 24).chr
-				@socket.write (length >> 16).chr
-				@socket.write (length >> 8).chr
-				@socket.write length.chr
+				bytes = length.chr(Encoding::UTF_16).bytes
+				bytes_hash = bytes_to_hash(bytes)
+
+				@socket.write bytes_hash[:b32].chr
+				@socket.write bytes_hash[:b24].chr
+				@socket.write bytes_hash[:b16].chr
+				@socket.write bytes_hash[:b8].chr
 				@socket.write message
 				@socket.flush
 			rescue Errno::EPIPE
@@ -82,5 +85,14 @@ class Connection
 
 	def remove_hex_escape hex
 		hex.unpack("H*")[0]
+	end
+
+	def bytes_to_hash bytes
+		bytes_hash = {
+			b8: bytes.pop,
+			b16: bytes.pop || 0,
+			b24: bytes.pop || 0,
+			b32: bytes.pop || 0,
+		}
 	end
 end
