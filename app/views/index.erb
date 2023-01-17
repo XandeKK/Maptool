@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script type="text/javascript" src="http://localhost:9292/faye/client.js"></script>
+  <script type="text/javascript" src="http://localhost:9292/faye/client.js"></script>
+  <script src="<%= javascript_path 'application' %>"></script>
 	<title></title>
 </head>
 <body>
@@ -22,11 +23,6 @@
 
   <input type="submit" value="connect" id="foda">
 </form>
-
-<br>
-
-<textarea id="message"></textarea>
-<button id="submit">ok</button>
 
 <script type="text/javascript">
   function uuidv4() {

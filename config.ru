@@ -2,8 +2,8 @@ require_relative 'config/environment'
 
 Faye::WebSocket.load_adapter 'thin'
 
-App = Faye::RackAdapter.new Application, settings.faye
+Application = Faye::RackAdapter.new App, $faye
 
-App.add_extension(FayeHandler.new)
+Application.add_extension(FayeHandler.new)
 
-run App
+run Application

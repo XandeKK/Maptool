@@ -2,11 +2,7 @@ require 'bundler'
 Bundler.require(:default)
 Bundler.require(ENV['APP_ENV']) if ENV['APP_ENV']
 
-root = ENV['PWD']
-set :public_folder, "#{root}/app/assets"
-set :views, "#{root}/app/views"
-
-set :faye, {
+$faye = {
 	mount: '/faye',
 	timeout: 20,
 	engine: {
@@ -16,4 +12,5 @@ set :faye, {
 	}
 }
 
+require 'sinatra/base'
 require_all 'app'
