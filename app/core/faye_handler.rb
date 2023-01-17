@@ -14,7 +14,6 @@ class FayeHandler
 		elsif !message['channel'].start_with?('/meta') && message['maptool']
       # if the message came from the client browser
 			add_message message
-			return
 		end
 
     callback.call(message)
