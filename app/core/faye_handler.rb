@@ -9,7 +9,7 @@ class FayeHandler
 	def incoming(message, callback)
 		if message['channel'] == '/meta/subscribe'
 			add_client(message)
-		elsif message['channel'] == '/meta/disconnect'
+		elsif message['channel'] == '/meta/disconnect' || message['channel'] == '/meta/unsubscribe'
 			remove_client(message)
 		elsif !message['channel'].start_with?('/meta') && message['maptool']
       # if the message came from the client browser
