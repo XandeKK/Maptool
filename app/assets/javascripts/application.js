@@ -1,4 +1,5 @@
 //= require_tree .
+//= require flowbite/dist/flowbite.min.js
 
 class Client {
 	constructor(form_id) {
