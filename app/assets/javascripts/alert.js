@@ -31,7 +31,7 @@ class Alert {
 		const div_message = document.createElement('div');
 		const button_dismiss = document.createElement('dismiss');
 
-		div.id = `alert-${Random.generate_uuid}`;
+		div.id = `alert-${Random.generate_uuid()}`;
 		div.className = `flex w-64 md:w-96 p-4 text-${color}-700 bg-${color}-100 border-t-4 border-${color}-500 dark:text-${color}-400 dark:bg-gray-800`
 		div.role = 'alert';
 
