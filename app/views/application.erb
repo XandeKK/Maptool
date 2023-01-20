@@ -6,9 +6,20 @@
 	<script type="text/javascript" src="http://localhost:9292/faye/client.js"></script>
 	<link rel="stylesheet" href="<%= stylesheet_path 'application' %>">
 	<script src="<%= javascript_path 'application' %>" defer></script>
+	<script type="text/javascript">
+		if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		  document.documentElement.classList.add('dark');
+		} else {
+		  document.documentElement.classList.remove('dark')
+		}
+	</script>
 	<title>Maptool</title>
 </head>
-<body>
-	<%= yield %>
+<body class="bg-gray-200 dark:bg-black">
+	<%= erb :'partials/header' %>
+	<main class="flex text-gray-500 dark:text-gray-400">
+		<%= erb :'partials/drawer' %>
+		<%= yield %>
+	</main>
 </body>
 </html>

@@ -36,6 +36,6 @@ class App < Sinatra::Base
   end
 
 	get '/' do
-		erb :index, :layout => :application
+		erb :'home/index', :layout => :application
 	end
 end
