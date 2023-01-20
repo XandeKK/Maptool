@@ -65,6 +65,7 @@ RSpec.describe FayeHandler do
 
 			client_1 = double(:client_1)
 
+			expect(callback).to receive(:call).with(message)
 			expect(client_1).to receive(:add_message).with(message['data'])
 
 			subject.instance_variable_set(:@clients, {'random'=> {client: client_1}})
