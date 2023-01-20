@@ -12,7 +12,7 @@ class App < Sinatra::Base
 
   configure do
     sprockets.append_path File.join(root, 'assets', 'stylesheets')
-    sprockets.append_path File.join(root, 'assets', 'javascripts')
+    sprockets.append_path File.join(root, 'javascripts')
     sprockets.append_path File.join(root, '..', 'node_modules')
     sprockets.append_path File.join(root, 'assets', 'images')
     # sprockets.js_compressor  = Uglifier.new(harmony: true)
