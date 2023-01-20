@@ -1,8 +1,8 @@
-RSpec.describe Application do
+RSpec.describe App do
 	include Rack::Test::Methods
 
 	def app
-		Application
+		App
 	end
 
 	it "get root" do
