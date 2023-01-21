@@ -24,6 +24,12 @@ class Chat {
     this.notify();
 	}
 
+	whisper(player) {
+		this.chat_message.value = `@${player['name']} ${this.chat_message.value}`
+		window.tabs.show('chat');
+		this.chat_message.focus();
+	}
+
 	auto_expand() {
 		this.chat_message.addEventListener('keyup', (event) => {
 			event.preventDefault();

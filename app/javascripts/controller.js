@@ -10,6 +10,7 @@ class Controller {
 
 	reset() {
 		this.chat.clear();
+		this.maptool.users.clear();
 		
 		// clear tokens and users
 
