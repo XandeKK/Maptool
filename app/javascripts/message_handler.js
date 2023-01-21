@@ -26,4 +26,9 @@ class MessageHandler {
 		const player = message['playerDisconnectedMsg']['player'];
 		this.controller.maptool.users.remove(player);
 	}
+
+	messageMsg(message) {
+		const data = message['messageMsg']['message'];
+		this.controller.chat.handler(data);
+	}
 }

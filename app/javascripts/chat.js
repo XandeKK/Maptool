@@ -67,6 +67,28 @@ class Chat {
 		this.chat_message.value = '';
 	}
 
+	htmlToString(html) {
+    let template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.childNodes[0].textContent;
+	}
+
+	handler(data) {
+		let message = this.htmlToString(data['message']);
+		if (!data['target']) {
+			this.add_message(message);
+		} else {
+			const player = this.controller.maptool.player['name'];
+			if (data['target'] == player) {
+				this.add_message(message);
+			} else if (data['source'] == player) {
+				message = message.substring(`${player} whispers:`.length);
+				message = `You whispered to ${data['target']}:` + message;
+				this.add_message(message);
+			}
+		}
+	}
+
 	add_message(message) {
 		const div = document.createElement('div');
 
