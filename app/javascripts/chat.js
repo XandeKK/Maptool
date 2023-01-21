@@ -3,9 +3,68 @@ class Chat {
 		this.controller = controller;
 		this.chat_body = document.getElementById('chat-body');
 		this.chat_message = document.getElementById('chat-message');
+		this.chat_button = document.getElementById('chat-button');
 		this.limit = 125;
 
+		this.chat_button.addEventListener('click', this.send_message.bind(this));
 		this.auto_expand();
+	}
+
+	send_whisper(message) {
+		const users = this.controller.maptool.users.users;
+		const player = this.controller.maptool.player['name'];
+		let target = null;
+
+		for (let user in users) {
+			let message_tmp = message.substring(0, user.length + 2);
+			if (message_tmp == `@${user} `) {
+				target = user;
+				message = message.replace(message_tmp, '');
+				break;
+			}
+		}
+
+		if (!target) {
+			Alert.add('The user you are trying to whisper does not exist, check that it is correct', 'warning', 5000);
+			return;
+		}
+
+		const data = {
+	    'messageMsg': {
+	      'message': {
+	        'channel': 5,
+	        'target': target,
+	        'message': `<div class='whisper'>${player} whispers: ${message}</div>`,
+	        'source': player
+        }
+    	}
+		}
+
+		this.controller.client.send_message(data);
+		this.chat_message.value = '';
+	}
+
+	send_message() {
+		let message = this.chat_message.value;
+		const player = this.controller.maptool.player['name'];
+
+		if (message.match(/^@/)){
+			this.send_whisper(message);
+			return;;
+		}
+
+		const data = {
+			'messageMsg': {
+				'message': {
+					'channel': 1,
+					'message': `<div class='say'><table class='ava-msg'><tr valign='top'><td class='avatar'></td><td class='message'><span class='prefix'>${player}:</span> <span style='color:#000000'>${message}</span></td></tr></table></div>`,
+					'source': player
+				}
+			}
+		}
+
+		this.controller.client.send_message(data);
+		this.chat_message.value = '';
 	}
 
 	add_message(message) {
@@ -33,6 +92,8 @@ class Chat {
 	auto_expand() {
 		this.chat_message.addEventListener('keyup', (event) => {
 			event.preventDefault();
+
+			if (event.key == 'Enter' && event.ctrlKey) this.send_message();
 
 		  this.chat_message.style.height = "";
 		  this.chat_message.style.height = Math.min(this.chat_message.scrollHeight, this.limit) + "px";

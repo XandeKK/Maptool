@@ -23,6 +23,10 @@ class Client {
 		this.debug = true;
 	}
 
+	send_message(data) {
+		this.client.publish(this.channel, data);
+	}
+
 	outgoing(message, callback) {
 		message.maptool = this.controller.form.data;
 		callback(message);
