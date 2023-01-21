@@ -10,7 +10,7 @@ class Alert {
 	  duration: 1000,
 	  timing: 'ease-out',
 	  onHide: (context, target) => {
-	  	setTimeout(()=> {target.remove();}, 1000)
+	  	setTimeout(()=> {target.remove();}, 200)
 	  }
 	};
 	static body_div = [
@@ -25,7 +25,7 @@ class Alert {
 	  `</svg>`
 	].join('');
 
-	static add(message, level='info', parent='alerts') {
+	static add(message, level='info', timeout=8000, parent='alerts') {
 		const color = this.colors[level];
 		const div = document.createElement('div');
 		const div_message = document.createElement('div');
@@ -50,6 +50,6 @@ class Alert {
 		document.getElementById(parent).appendChild(div);
 
 		const dismiss = new Dismiss(div, button_dismiss, this.options);
-		setTimeout(()=> {dismiss.hide();}, 8000)
+		setTimeout(()=> {dismiss.hide();}, timeout)
 	}
 }
