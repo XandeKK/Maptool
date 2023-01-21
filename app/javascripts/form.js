@@ -13,6 +13,7 @@ class Form {
 			if (this.controller.status == 'subscribed') return;
 
 			this.data = this.form_to_json();
+			this.controller.maptool.set_player(this.data);
 			this.controller.client.subscribe();
 			this.controller.status = 'subscribed';
 
@@ -26,6 +27,7 @@ class Form {
 
 			this.controller.reset();
 			this.controller.client.unsubscribe();
+			
 			this.show_form();
 		});
 	}

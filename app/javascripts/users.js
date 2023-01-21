@@ -77,7 +77,7 @@ class Users {
 			role: player['role'],
 			div: div
 		}
-		this.controller.chat.add_message(`${player['role']} ${player['name']} joined.`)
+		this.controller.chat.add_message(`${player['role'].toLowerCase()} ${player['name']} joined.`)
 		document.getElementById('users-list').appendChild(div);
 	}
 
@@ -87,6 +87,6 @@ class Users {
 		this.users[player['name']].div.remove();
 
 		delete this.users[player['name']];
-		this.controller.chat.add_message(`${player['role']} ${player['name']} left.`)
+		this.controller.chat.add_message(`${player['role'].toLowerCase()} ${player['name']} left.`)
 	}
 }
