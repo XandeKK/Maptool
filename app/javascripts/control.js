@@ -131,6 +131,8 @@ class Control {
 	}
 
 	static send_move(controller, token) {
+		if (!token.x) token.x = 0;
+		if (!token.y) token.y = 0;
 		controller.client.send_message(
 			{
 	    "updateTokenMoveMsg": {
@@ -167,7 +169,7 @@ class Control {
 	}
 
 	static up(controller, token) {
-		let grid_size = this.get_grid(controller, token);	
+		let grid_size = this.get_grid(controller, token);
 		token.y -= grid_size;
 
 		this.send_move(controller, token);
