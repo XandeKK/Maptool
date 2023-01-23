@@ -36,4 +36,14 @@ class MessageHandler {
 		const campaign = message['setCampaignMsg']['campaign'];
 		this.controller.maptool.configure_campaign(campaign);
 	}
+
+	putTokenMsg(message) {
+		const token = message['putTokenMsg']['token'];
+		this.controller.maptool.tokens.handler_token_msg(token);
+	}
+
+	editTokenMsg(message) {
+		const token = message['editTokenMsg']['token'];
+		this.controller.maptool.tokens.handler_token_msg(token);
+	}
 }

@@ -8,6 +8,15 @@ class Tokens {
 		return token['properties'][property] || '';
 	}
 
+	handler_token_msg(token_tmp) {
+		let token = this.tokens[token_tmp['id']];
+		token_tmp['zone'] = token['zone'];
+		this.tokens[token_tmp['id']] = token_tmp;
+
+		document.getElementById(`form-${token['id']}`).remove();
+		this.create_edit(token_tmp, document.getElementById(`Edit-${token['id']}`));
+	}
+
 	update_token(properties, token) {
 		event.preventDefault();
 		for (let i in properties) {
@@ -30,16 +39,10 @@ class Tokens {
 		Alert.add('Updated', 'success');
 	}
 
-	create_edit(token) {
+	create_edit(token, parent) {
 		const properties = this.controller.maptool.get_properties(token['propertyType']);
 		const form = document.createElement('form');
-		const div = document.createElement('div');
 		const submit = document.createElement('button');
-    
-		div.id = `edit-${token['id']}`;
-		div.className = 'p-4'
-		div.role = 'tabpanel';
-		div.ariaLabelledby = `edit-${token['id']}-tab`;
 
 		form.id = `form-${token['id']}`;
 		form.className = 'md:p-5';
@@ -56,9 +59,7 @@ class Tokens {
 		}
 
 		form.appendChild(submit);
-		div.appendChild(form);
-
-		return div;
+		parent.appendChild(form);
 	}
 
 	create_property_field(property, token) {
@@ -84,17 +85,8 @@ class Tokens {
 		return div;
 	}
 
-	create_control(token) {
-		const div = document.createElement('div');
-    
-		div.id = `control-${token['id']}`;
-		div.className = 'p-4'
-		div.role = 'tabpanel';
-		div.ariaLabelledby = `control-${token['id']}-tab`;
-
-		Control.append_control(this.controller, token, div);
-
-		return div;
+	create_control(token, parent) {
+		Control.append_control(this.controller, token, parent);
 	}
 
 	create_div(token) {
@@ -108,33 +100,41 @@ class Tokens {
 
 		ul.role = 'tablist';
 
+		div.id = `token-${token['id']}`;
 		div.className = 'bg-white md:rounded-lg dark:bg-zinc-800 mb-5';
 		h1.className = 'flex w-full justify-between bg-emerald-600 text-white p-3 md:rounded-t-lg items-center font-bold';
 		ul.className = 'flex -mb-px text-sm font-medium text-center gap-2 mb-4 border-b border-gray-200 dark:border-gray-700';
 
 		h1.textContent = `${token['name']} - ${token['zone']['name']}`;
 
-		for (let tab in tabs) {
+		for (let i in tabs) {
 			const li = document.createElement('li');
 			const button = document.createElement('button');
-			const body = this[`create_${tabs[tab].toLowerCase()}`](token)
+			const body = document.createElement('div');
 
 			li.role = 'presentation';
 
-			button.id = `${tabs[tab]}-${id}-tab`;
+			button.id = `${tabs[i]}-${id}-tab`;
 			button.className = 'inline-block p-4 border-b-2 rounded-t-lg';
 			button.type = 'button';
 			button.role = 'tab';
-			button.ariaControls = `${tabs[tab]}-${id}`;
+			button.ariaControls = `${tabs[i]}-${id}`;
 			button.ariaSelected = 'false'
-			button.textContent = tabs[tab];
+			button.textContent = tabs[i];
+
+			body.id = `${tabs[i]}-${token['id']}`;
+			body.className = 'p-4'
+			body.role = 'tabpanel';
+			body.ariaLabelledby = `${tabs[i]}-${token['id']}-tab`;
+
+			this[`create_${tabs[i].toLowerCase()}`](token, body);
 
 			li.appendChild(button);
 			ul.appendChild(li);
 			tab_content.appendChild(body);
 
 			tabElements.push({
-				id: tabs[tab],
+				id: tabs[i],
 				triggerEl: button,
 				targetEl: body
 			});

@@ -109,7 +109,8 @@ class Control {
 	  )
 	}
 
-	static stop_button(controller, token) {
+	static stop_button(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		controller.client.send_message(
 		{
 	    "stopTokenMoveMsg": {
@@ -118,14 +119,14 @@ class Control {
 	    }
 		})
 
-		let token_tmp = Object.assign({}, token);
+		let token_copy = Object.assign({}, token);
 
-		delete token_tmp.zone
+		delete token_copy.zone
 
 		controller.client.send_message({
 			"putTokenMsg": {
         "zoneGuid": token.zone.id,
-        "token": token_tmp
+        "token": token_copy
     	}
 		})
 	}
@@ -168,35 +169,40 @@ class Control {
 		)
 	}
 
-	static up(controller, token) {
+	static up(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);
 		token.y -= grid_size;
 
 		this.send_move(controller, token);
 	}
 
-	static bottom(controller, token) {
+	static bottom(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.y += grid_size;
 
 		this.send_move(controller, token);
 	}
 
-	static left(controller, token) {
+	static left(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x -= grid_size;
 
 		this.send_move(controller, token);
 	}
 
-	static right(controller, token) {
+	static right(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x += grid_size;
 
 		this.send_move(controller, token);
 	}
 
-	static up_left(controller, token) {
+	static up_left(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x -= grid_size;
 		token.y -= grid_size;
@@ -204,7 +210,8 @@ class Control {
 		this.send_move(controller, token);
 	}
 
-	static up_right(controller, token) {
+	static up_right(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x += grid_size;
 		token.y -= grid_size;
@@ -212,7 +219,8 @@ class Control {
 		this.send_move(controller, token);
 	}
 
-	static bottom_left(controller, token) {
+	static bottom_left(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x -= grid_size;
 		token.y += grid_size;
@@ -220,7 +228,8 @@ class Control {
 		this.send_move(controller, token);
 	}
 
-	static bottom_right(controller, token) {
+	static bottom_right(controller, token_tmp) {
+		const token = controller.maptool.tokens.tokens[token_tmp['id']];
 		let grid_size = this.get_grid(controller, token);	
 		token.x += grid_size;
 		token.y += grid_size;
