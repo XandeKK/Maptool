@@ -1,9 +1,15 @@
 class Alert {
-	static colors = {
-		'info': 'blue',
-		'danger': 'red',
-		'success': 'green',
-		'warning': 'yellow'
+	static div_colors = {
+		'info': 'text-blue-700 bg-blue-100 border-blue-500 dark:text-blue-400 blue',
+		'danger': 'text-red-700 bg-red-100 border-red-500 dark:text-red-400 red',
+		'success': 'text-green-700 bg-green-100 border-green-500 dark:text-green-400 green',
+		'warning': 'text-yellow-700 bg-yellow-100 border-yellow-500 dark:text-yellow-400 yellow'
+	}
+	static button_colors = {
+		'info': 'bg-blue-100 text-blue-500 dark:text-blue-300 focus:ring-blue-400 hover:bg-blue-200 blue',
+		'danger': 'bg-red-100 text-red-500 dark:text-red-300 focus:ring-red-400 hover:bg-red-200 red',
+		'success': 'bg-green-100 text-green-500 dark:text-green-300 focus:ring-green-400 hover:bg-green-200 green',
+		'warning': 'bg-yellow-100 text-yellow-500 dark:text-yellow-300 focus:ring-yellow-400 hover:bg-yellow-200 yellow'
 	}
 	static options = {
 	  transition: 'transition-opacity',
@@ -26,20 +32,19 @@ class Alert {
 	].join('');
 
 	static add(message, level='info', timeout=8000, parent='alerts') {
-		const color = this.colors[level];
 		const div = document.createElement('div');
 		const div_message = document.createElement('div');
 		const button_dismiss = document.createElement('dismiss');
 
 		div.id = `alert-${Random.generate_uuid()}`;
-		div.className = `flex w-64 md:w-96 p-4 text-${color}-700 bg-${color}-100 border-t-4 border-${color}-500 dark:text-${color}-400 dark:bg-gray-800`
+		div.className = `${this.div_colors[level]} flex w-64 md:w-96 p-4 border-t-4 dark:bg-gray-800`
 		div.role = 'alert';
 
 		div_message.className = 'ml-3 text-sm font-medium';
 		div_message.innerHTML = message;
 
 		button_dismiss.type = 'button';
-		button_dismiss.className = `ml-auto -mx-1.5 -my-1.5 bg-${color}-100 text-${color}-500 rounded-lg focus:ring-2 focus:ring-${color}-400 p-1.5 hover:bg-${color}-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-${color}-300 dark:hover:bg-gray-700 cursor-pointer`;
+		button_dismiss.className = `${this.button_colors[level]} ml-auto -mx-1.5 -my-1.5 rounded-lg focus:ring-2 p-1.5 inline-flex h-8 w-8 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer`;
 		button_dismiss.ariaLabel = 'Close';
 		
 		button_dismiss.innerHTML = this.body_button;
