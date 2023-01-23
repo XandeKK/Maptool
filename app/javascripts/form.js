@@ -1,4 +1,4 @@
-class Form {
+class FormServer {
 	constructor(controller) {
 		this.controller = controller;
 		this.form = document.getElementById('form-server');

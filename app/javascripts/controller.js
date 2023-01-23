@@ -1,6 +1,6 @@
 class Controller {
 	constructor() {
-		this.form = new Form(this);
+		this.form = new FormServer(this);
 		this.client = new Client(this);
 		this.maptool = new Maptool(this);
 		this.message_handler = new MessageHandler(this);
