@@ -31,4 +31,9 @@ class MessageHandler {
 		const data = message['messageMsg']['message'];
 		this.controller.chat.handler(data);
 	}
+
+	setCampaignMsg(message) {
+		const campaign = message['setCampaignMsg']['campaign'];
+		this.controller.maptool.configure_campaign(campaign);
+	}
 }

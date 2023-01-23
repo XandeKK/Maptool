@@ -2,7 +2,7 @@ class Maptool {
 	constructor(controller) {
 		this.controller = controller;
 		this.users = new Users(controller);
-		this.tokens = {};
+		this.tokens = new Tokens(controller);
 		this.campaign = null;
 	}
 
@@ -17,5 +17,14 @@ class Maptool {
 		if (this.player['name'] == player['name']) {
 			this.player['role'] = player['role'].toLowerCase();
 		}
+	}
+
+	configure_campaign(campaign) {
+		this.campaign = campaign;
+		this.tokens.add_many_tokens(campaign['zones']);
+	}
+
+	get_properties(type) {
+		return this.campaign.properties.tokenTypes[type]['properties'];
 	}
 }
