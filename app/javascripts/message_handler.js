@@ -44,6 +44,7 @@ class MessageHandler {
 
 	editTokenMsg(message) {
 		const token = message['editTokenMsg']['token'];
-		this.controller.maptool.tokens.handler_token_msg(token);
+		const zone_id = message['editTokenMsg']['zoneGuid'];
+		this.controller.maptool.tokens.handler_token_msg(token, zone_id);
 	}
 }

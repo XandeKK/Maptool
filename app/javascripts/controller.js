@@ -11,8 +11,7 @@ class Controller {
 	reset() {
 		this.chat.clear();
 		this.maptool.users.clear();
-		
-		// clear tokens and users
+		this.maptool.tokens.clear();
 
 		this.maptool = new Maptool(this);
 		this.status = 'unsubscribed';

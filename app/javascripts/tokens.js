@@ -8,7 +8,34 @@ class Tokens {
 		return token['properties'][property] || '';
 	}
 
-	handler_token_msg(token_tmp) {
+	have_this_player(token) {
+		return this.tokens[token['id']];
+	}
+
+	handler_token_msg(token_tmp, zone_id) {
+		if (!this.is_my_token(token_tmp)){
+			if (this.have_this_player(token_tmp)) {
+				this.remove(token_tmp);
+			}
+			return;
+		}
+
+		if (this.is_my_token(token_tmp) && !this.have_this_player(token_tmp)) {
+			const zone = this.controller.maptool.campaign.zones.find((zone)=> {
+				if (zone_id == zone['id']) return zone;
+			});
+
+			token_tmp['zone'] = {
+				id: zone_id,
+				name: zone['name']
+			}
+
+			this.create_div(token_tmp);
+
+			this.tokens[token_tmp['id']] = token_tmp;
+			return;
+		}
+
 		let token = this.tokens[token_tmp['id']];
 		token_tmp['zone'] = token['zone'];
 		this.tokens[token_tmp['id']] = token_tmp;
@@ -174,5 +201,14 @@ class Tokens {
 		this.create_div(token);
 
 		this.tokens[token['id']] = token;
+	}
+
+	remove(token) {
+		delete this.tokens[token['id']];
+		document.getElementById(`token-${token['id']}`).remove();
+	}
+
+	clear() {
+		document.getElementById('token-tab-content').innerHTML = '';
 	}
 }
