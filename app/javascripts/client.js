@@ -3,7 +3,7 @@ class Client {
 		this.controller = controller;
 		this.debug = false;
 		this.channel = `/${Random.generate_uuid()}`;
-		this.client = new Faye.Client('http://localhost:9292/faye');
+		this.client = new Faye.Client('/faye');
 
 		this.client.addExtension({
 			incoming: this.incoming.bind(this),
