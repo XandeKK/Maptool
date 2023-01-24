@@ -10,6 +10,7 @@ gem 'openssl'
 gem 'securerandom'
 gem 'sprockets'
 gem 'sprockets-helpers'
+gem 'foreman'
 
 group :test do
 	gem 'rspec'
