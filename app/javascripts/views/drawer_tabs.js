@@ -5,9 +5,9 @@ const tabElements = [
         targetEl: document.querySelector('#server-tab-content')
     },
     {
-        id: 'users',
-        triggerEl: document.querySelector('#users-tab'),
-        targetEl: document.querySelector('#users-tab-content')
+        id: 'players',
+        triggerEl: document.querySelector('#players-tab'),
+        targetEl: document.querySelector('#players-tab-content')
     },
     {
         id: 'token',

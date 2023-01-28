@@ -18,13 +18,13 @@ class MessageHandler {
 
 	playerConnectedMsg(message) {
 		const player = message['playerConnectedMsg']['player'];
-		this.controller.maptool.users.add(player);
+		this.controller.maptool.players.add(player);
 		this.controller.maptool.set_role(player);
 	}
 
 	playerDisconnectedMsg(message) {
 		const player = message['playerDisconnectedMsg']['player'];
-		this.controller.maptool.users.remove(player);
+		this.controller.maptool.players.remove(player);
 	}
 
 	messageMsg(message) {

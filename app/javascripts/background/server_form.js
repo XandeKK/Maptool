@@ -1,12 +1,12 @@
-class FormServer {
+class ServerForm {
 	constructor(controller) {
 		this.controller = controller;
-		this.form = document.getElementById('form-server');
+		this.form = document.getElementById('server-form');
 		this.button_unsubscribe = document.getElementById('button-unsubscribe');
-		this.add_events();
+		this.add_event();
 	}
 
-	add_events() {
+	add_event() {
 		this.form.addEventListener('submit', () => {
 			event.preventDefault();
 

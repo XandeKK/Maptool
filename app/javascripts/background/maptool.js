@@ -1,7 +1,7 @@
 class Maptool {
 	constructor(controller) {
 		this.controller = controller;
-		this.users = new Users(controller);
+		this.players = new Players(controller);
 		this.tokens = new Tokens(controller);
 		this.campaign = null;
 	}

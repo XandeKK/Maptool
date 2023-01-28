@@ -1,6 +1,6 @@
 class Controller {
 	constructor() {
-		this.form = new FormServer(this);
+		this.form = new ServerForm(this);
 		this.client = new Client(this);
 		this.maptool = new Maptool(this);
 		this.message_handler = new MessageHandler(this);
@@ -10,7 +10,7 @@ class Controller {
 
 	reset() {
 		this.chat.clear();
-		this.maptool.users.clear();
+		this.maptool.players.clear();
 		this.maptool.tokens.clear();
 
 		this.maptool = new Maptool(this);

@@ -1,5 +1,5 @@
-class Control {
-	static append_control(controller, token, parent) {
+class ControlToken {
+	static append(controller, token, parent) {
 		const div_buttons = document.createElement('div');
 		const start_button = document.createElement('button');
 		const stop_button = document.createElement('button');

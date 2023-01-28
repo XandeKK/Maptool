@@ -1,4 +1,5 @@
 //= require flowbite/dist/flowbite.min.js
+//= require_directory ./views
 //= require_tree .
 
 const controller = new Controller();
