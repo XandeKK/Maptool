@@ -84,7 +84,7 @@ class Chat {
 	}
 
 	handler(data) {
-		let message = data['message'];
+		let message = data['message'].replace('#000000', '');
 		if (!data['target']) {
 			this.add_message(message);
 		} else {
