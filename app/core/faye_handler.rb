@@ -1,7 +1,5 @@
 class FayeHandler
 	def initialize
-    # A note to future me
-    # Store clients on redis server
 		@clients = {}
 		@faye_client = Faye::Client.new("#{ENV['RENDER_EXTERNAL_URL'] || 'http://localhost:9292'}/faye")
 	end
