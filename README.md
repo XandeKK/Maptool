@@ -8,8 +8,8 @@
 
 <p align="center">
  <a href="#-about-the-project">About</a> •
- <a href="#-setup">Setup</a> • 
- <a href="#-how-to-use">How to use</a> • 
+ <a href="#setup">Setup</a> • 
+ <a href="#how-to-use">How to use</a> • 
  <a href="#-technologies">Technologies</a>
 </p>
 
@@ -22,7 +22,7 @@ Currently, it you can only change the token properties and control it with arrow
 
 The objective of this project was to remove the inconvenience of taking the notebook to the rpg campaign, or else share it with your colleagues, so for that, you just have to take your cell phone and connect to the site and enter the maptool server and control your token.
 
-## ⚙️ Setup
+## ⚙️ Setup <span id='setup'></span>
 
 Currently only works on the local machine.
 
@@ -61,7 +61,7 @@ If there is any problem, report it to me.
 
 ---
 
-## How to use
+## ⌨️ How to use <span id='how-to-use'></span>
 
 On the left bar, you can see server, player, tokens and chat. You can browse through them.
 
